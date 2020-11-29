@@ -22,6 +22,7 @@ class Parse5ka:
     def _get(*args, **kwargs) -> requests.Response:
         while True:
             try:
+                # убираю проверку сертификатов
                 response = requests.get(*args, **kwargs, verify=False)
                 if response.status_code != 200:
                     # todo Создать класс исключение
