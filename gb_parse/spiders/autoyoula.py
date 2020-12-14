@@ -54,7 +54,6 @@ class AutoyoulaSpider(scrapy.Spider):
         feautures = response.css('.AdvertSpecs_row__ljPcX')
         feautures_dict = {}
         for itm in feautures:
-            print(1)
 
             feautures_dict.update({itm.css('.AdvertSpecs_label__2JHnS::text').get(): itm.css(
             '.AdvertSpecs_data__xK2Qx::text').get() or itm.css('a::text').get()})

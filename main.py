@@ -11,3 +11,5 @@ if __name__ == '__main__':
     crawl_proc = CrawlerProcess(settings=crawl_settings)
     crawl_proc.crawl(AutoyoulaSpider)
     crawl_proc.start()
+
+    #
