@@ -45,6 +45,26 @@ class HunterAuthorItem(scrapy.Item):
     author_description = scrapy.Field()
 
 
+class Insta(scrapy.Item):
+    _id = scrapy.Field()
+    date_parse = scrapy.Field()
+    data = scrapy.Field()
+    img = scrapy.Field()
+
+
+class InstaTag(Insta):
+    _id = scrapy.Field()
+    image_url = scrapy.Field()
+
+
+
+class InstaPost(Insta):
+    _id = scrapy.Field()
+    image_url = scrapy.Field()
+
+
+
+
 
 
 
