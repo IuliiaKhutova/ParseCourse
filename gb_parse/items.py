@@ -63,6 +63,27 @@ class InstaPost(Insta):
     image_url = scrapy.Field()
 
 
+class InstaFollow(scrapy.Item):
+    _id = scrapy.Field()
+    user_id =  scrapy.Field()
+    user_name =  scrapy.Field()
+    follow_id =  scrapy.Field()
+    follow_name =  scrapy.Field()
+
+
+class InstaUser(Insta):
+    pass
+
+
+class InstaFollowers(scrapy.Item):
+    _id = scrapy.Field()
+    user_id = scrapy.Field()
+    user_name = scrapy.Field()
+    follower_id = scrapy.Field()
+    follower_name = scrapy.Field()
+
+
+
 
 
 
