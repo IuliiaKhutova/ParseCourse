@@ -21,6 +21,7 @@ class GbParsePipeline:
             collection.insert_one(item)
         return item
 
+
 class GbImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         try:

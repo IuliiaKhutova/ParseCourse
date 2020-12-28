@@ -20,10 +20,9 @@ class InstagramSpider(scrapy.Spider):
         'followers': 'c76146de99bb02f6415203be841dd25a'
     }
 
-    def __init__(self, login, password, *args, **kwargs):
-        # self.tags = ['trasas','garminvanu']
-        # self.tags = ['fordmondeoestate','trasas','garminvanu']
-        self.users = ['nik_aire', ]
+    def __init__(self, login, password, user, *args, **kwargs):
+
+        self.user = user
         self.login = login
         self.password = password
         super().__init__(*args, **kwargs)
@@ -46,17 +45,17 @@ class InstagramSpider(scrapy.Spider):
             if response.json().get('authenticated'):
                 # for tag in self.tags:
                 #     yield response.follow(f'/explore/tags/{tag}/', callback=self.tag_parse)
-                for user in self.users:
+                # for user in self.users:
                     # yield from self.get_api_follow_request(response, self.js_data_extract(response)['entry_data']['ProfilePage'][0]['graphql']['user'])
 
-                    yield response.follow(f'{self.start_urls[0]}{user}/',callback=self.user_page_parse)
+                yield response.follow(f'{self.start_urls[0]}{self.user}/',callback=self.user_page_parse)
 
     def user_page_parse(self, response):
         user_data = self.js_data_extract(response)['entry_data']['ProfilePage'][0]['graphql']['user']
-        yield InstaUser(
-            date_parse=dt.datetime.utcnow(),
-            data=user_data
-        )
+        # yield InstaUser(
+        #     date_parse=dt.datetime.utcnow(),
+        #     data=user_data
+        # )
 
         yield from self.get_api_follow_request(response, user_data)
         yield from self.get_api_followers_request(response, user_data)
@@ -87,7 +86,6 @@ class InstagramSpider(scrapy.Spider):
     def get_api_follow(self, response, user_data):
         if b'application/json' in response.headers['Content-Type']:
             data = response.json()
-            print(1)
 
             # условие - кто это фоловер или фолоу
             try:
@@ -119,10 +117,10 @@ class InstagramSpider(scrapy.Spider):
                 follow_id=user['node']['id'],
                 follow_name=user['node']['username']
             )
-            yield InstaUser(
-                date_parse=dt.datetime.utcnow(),
-                data=user['node']
-            )
+            # yield InstaUser(
+            #     date_parse=dt.datetime.utcnow(),
+            #     data=user['node']
+            # )
 
     def get_followers_item(self, user_data, follow_users_data):
         for user in follow_users_data:
@@ -132,10 +130,10 @@ class InstagramSpider(scrapy.Spider):
                 follower_id=user['node']['id'],
                 follower_name=user['node']['username']
             )
-            yield InstaUser(
-                date_parse=dt.datetime.utcnow(),
-                data=user['node']
-            )
+            # yield InstaUser(
+            #     date_parse=dt.datetime.utcnow(),
+            #     data=user['node']
+            # )
 
 
     @staticmethod
